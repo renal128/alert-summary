@@ -1,0 +1,37 @@
+th, td {
+    border: 1px solid #000000;
+    border-collapse: collapse;
+    padding: 5px;
+    text-align: left;
+}
+
+table {
+    width: 600px;
+    border-collapse: collapse;
+}
+
+td {
+    height: 40px;
+}
+
+tr:last-child {
+    background-color: #a0a0a0;
+}
+
+tr:not(:first-child) {
+    text-align: right;
+}
+
+th {
+    background-color: #a0a0a0;
+    height: 24px;
+}
+
+textarea {
+    width: 600px;
+    height: 300px;
+}
+
+button {
+    margin: 8px;
+}
