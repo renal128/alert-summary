@@ -115,9 +115,19 @@ buildReportButton.onclick = function () {
 }
 
 copyButton.onclick = function () {
-    var range = document.createRange();
-    range.selectNode(resultsTable);
-    window.getSelection().addRange(range);
+    const range = document.createRange();
+    const sel = window.getSelection();
+    // unselect any element in the page
+    sel.removeAllRanges();
+
+    try {
+      range.selectNodeContents(resultsTable);
+      sel.addRange(range);
+    } catch (e) {
+      range.selectNode(resultsTable);
+      sel.addRange(range);
+    }
+
     document.execCommand('copy');
 }
 
