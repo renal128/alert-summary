@@ -91,8 +91,8 @@ buildReportButton.onclick = function () {
     for (var i = 0; i < newRowsData.length; i++) {
         const alertName = newRowsData[i][0];
         const total = newRowsData[i][1];
-        const warn = newRowsData[i][2];
-        const triggered = newRowsData[i][3];
+        const triggered = newRowsData[i][2];
+        const warn = newRowsData[i][3];
 
         const row = document.createElement("tr");
         row.appendChild(createCell("td", alertName));
