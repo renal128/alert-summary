@@ -63,7 +63,7 @@ buildReportButton.onclick = function () {
                 status = 'recovered';
             } 
 
-            if (triggered || warn) {
+            if (status) {
                 if (!(alertText in alerts)) {
                     alerts[alertText] = { "triggered": 0, "warn": 0, "last_status": "" };
                 }
