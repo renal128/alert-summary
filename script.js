@@ -31,6 +31,7 @@ tableHeader.appendChild(createCell("th", "Total"));
 tableHeader.appendChild(createCell("th", "Triggered"));
 tableHeader.appendChild(createCell("th", "Warn"));
 tableHeader.appendChild(createCell("th", "Notes"));
+tableHeader.appendChild(createCell("th", "Status"));
 
 buildReportButton.onclick = function () {
     console.log("hello");
@@ -48,20 +49,27 @@ buildReportButton.onclick = function () {
             let triggered = 0;
             let warn = 0;
             let alertText = '';
+            let status = ''
             if (line.startsWith("Triggered: ")) {
                 alertText = line.substring(11);
                 triggered = 1;
+                status = 'triggered';
             } else if (line.startsWith("Warn: ")) {
                 alertText = line.substring(6);
                 warn = 1;
-            }
+                status = 'warn';
+            } else if (line.startsWith("Recovered: ")) {
+                alertText = line.substring(11);
+                status = 'recovered';
+            } 
 
             if (triggered || warn) {
                 if (!(alertText in alerts)) {
-                    alerts[alertText] = { "triggered": 0, "warn": 0 };
+                    alerts[alertText] = { "triggered": 0, "warn": 0, "last_status": "" };
                 }
                 alerts[alertText]["triggered"] += triggered;
                 alerts[alertText]["warn"] += warn;
+                alerts[alertText]["last_status"] += status;
             }
         }
     }
@@ -73,7 +81,8 @@ buildReportButton.onclick = function () {
     for (const [alertText, data] of Object.entries(alerts)) {
         const t = data["triggered"];
         const w = data["warn"];
-        newRowsData.push([alertText, t + w, t, w]);
+        const s = data["last_status"];
+        newRowsData.push([alertText, t + w, t, w, s]);
         sumWarn += w;
         sumTriggered += t;
     }
@@ -93,12 +102,14 @@ buildReportButton.onclick = function () {
         const total = newRowsData[i][1];
         const triggered = newRowsData[i][2];
         const warn = newRowsData[i][3];
+        const status = newRowsData[i][4];
 
         const row = document.createElement("tr");
         row.appendChild(createCell("td", alertName));
         row.appendChild(createCell("td", total));
         row.appendChild(createCell("td", triggered));
         row.appendChild(createCell("td", warn));
+        row.appendChild(createCell("td", status));
         row.appendChild(createCell("td", ""));
         const brightness = getRowBrightness(total);
         row.style.backgroundColor = rgbToHex(255, brightness, brightness);
