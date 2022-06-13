@@ -30,8 +30,8 @@ tableHeader.appendChild(createCell("th", "Alert Name"));
 tableHeader.appendChild(createCell("th", "Total"));
 tableHeader.appendChild(createCell("th", "Triggered"));
 tableHeader.appendChild(createCell("th", "Warn"));
-tableHeader.appendChild(createCell("th", "Notes"));
 tableHeader.appendChild(createCell("th", "Status"));
+tableHeader.appendChild(createCell("th", "Notes"));
 
 buildReportButton.onclick = function () {
     console.log("hello");
@@ -69,7 +69,7 @@ buildReportButton.onclick = function () {
                 }
                 alerts[alertText]["triggered"] += triggered;
                 alerts[alertText]["warn"] += warn;
-                alerts[alertText]["last_status"] += status;
+                alerts[alertText]["last_status"] = status;
             }
         }
     }
